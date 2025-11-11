@@ -3,12 +3,51 @@ import sys
 
 from cv2 import Tracker
 
+
+
+def list_cam():
+    avail = [] 
+    for i in range(10):
+        cap = cv2.VideoCapture(i)
+        if cap.isOpened():
+            avail.append(i)
+            print(f"Camera found at index {i}")
+            cap.release()
+        
+    return avail
+def lookforcamera(): 
+    available = list_cam()
+
+    if not available:
+        print("No available cameras found.")
+        sys.exit()
+
+    print("\nAvailable camera indices:", available)
+
+    while True: 
+        try: 
+            cam_input = int(input("Select cam: "))
+            if cam_input in available: 
+                cap = cv2.VideoCapture(cam_input)
+                print(f"Using cam at index {cam_input}")
+                return cap 
+
+            else:
+                print("Invalid idx.")
+        except ValueError:
+            print("enter a valid number")
+
+
+
+
 tracker_type = 'BOOSTING'
 tracker = cv2.legacy.TrackerBoosting_create()
 
-video = cv2.VideoCapture(0)
-video.set(3, 640)
-video.set(4, 480)
+
+
+video = lookforcamera()
+video.set(3, 1920)
+video.set(4, 1080)
 
 if not video.isOpened():
     print("Could not open video")
