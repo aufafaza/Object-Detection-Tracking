@@ -46,8 +46,8 @@ tracker = cv2.legacy.TrackerBoosting_create()
 
 
 video = lookforcamera()
-video.set(3, 1920)
-video.set(4, 1080)
+video.set(3, 640)
+video.set(4, 480)
 
 if not video.isOpened():
     print("Could not open video")
